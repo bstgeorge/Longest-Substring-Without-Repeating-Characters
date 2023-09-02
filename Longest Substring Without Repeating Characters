@@ -1,0 +1,29 @@
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var lengthOfLongestSubstring = function(s, result) {
+    let sArr = s.split('');
+    result = result || 0;
+
+    // base case
+    if (sArr.length <= 1) {
+      return sArr.length;
+    }
+
+    let currentString = [];
+    for (let i = 0; i < sArr.length; i++) {
+        let found = false;
+        for (let j = 0; j < currentString.length; j++) {
+          if (sArr[i] === currentString[j]) {
+            found = true
+          }
+        }
+        if (found === false) {
+          currentString.push(sArr[i])
+          result = Math.max(result, currentString.length);
+        } else { break };
+    }
+    result = Math.max(result, lengthOfLongestSubstring(s.slice(1), result))
+    return result;
+};
